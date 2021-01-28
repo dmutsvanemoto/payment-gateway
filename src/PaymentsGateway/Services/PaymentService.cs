@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using PaymentsGateway.HttpClients;
 using PaymentsGateway.Models;
@@ -26,9 +27,19 @@ namespace PaymentsGateway.Services
             return false;
         }
 
-        public Task<IList<PaymentsContract>> RetrievePayments(int merchantId)
+        public async Task<IList<PaymentsContract>> RetrievePayments(int merchantId)
         {
-            throw new System.NotImplementedException();
+            var response = await _paymentsApiClient.GetPayments(merchantId);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var payloadString = await response.Content.ReadAsStringAsync();
+                var payload = JsonSerializer.Deserialize<IList<PaymentsContract>>(payloadString);
+
+                return payload;
+            }
+
+            return null;
         }
     }
 }

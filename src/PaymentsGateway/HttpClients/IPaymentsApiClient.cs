@@ -7,5 +7,6 @@ namespace PaymentsGateway.HttpClients
     public interface IPaymentsApiClient
     {
         Task<HttpResponseMessage> CreatePayment(PaymentRequest payload);
+        Task<HttpResponseMessage> GetPayments(int merchantId);
     }
 }

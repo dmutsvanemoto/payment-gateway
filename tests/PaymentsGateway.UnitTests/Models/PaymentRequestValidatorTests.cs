@@ -45,7 +45,7 @@ namespace PaymentsGateway.UnitTests.Models
 
             var validationResult = validator.Validate(paymentRequest);
 
-            validationResult.IsValid.Should().BeFalse();
+            validationResult.IsValid.Should().BeTrue();
             validationResult.Errors.Should().NotContain(x => x.PropertyName == "ExpiryMonth");
             validationResult.Errors.Should().NotContain(x => x.PropertyName == "ExpiryYear");
         }
