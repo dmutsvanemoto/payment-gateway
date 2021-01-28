@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using PaymentsGateway.Models;
 
 namespace PaymentsGateway.Controllers
 {
@@ -9,8 +10,13 @@ namespace PaymentsGateway.Controllers
     {
         [HttpPost]
         [Route("payments")]
-        public async Task<IActionResult> ProcessPayment()
-        {   
+        public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest payload)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             return BadRequest();
         }
     }
