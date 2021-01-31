@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
@@ -22,7 +20,7 @@ namespace PaymentsAPI.Controllers
             _readService = readService ?? throw new ArgumentNullException(nameof(readService));
         }
 
-        [HttpPut]
+        [HttpGet]
         [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<IActionResult> GetPaymentsByMerchantId([FromRoute] int? merchantId)
