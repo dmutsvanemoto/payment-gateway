@@ -51,7 +51,7 @@ namespace PaymentsGateway.UnitTests.Models
         }
 
         [Fact]
-        public void Should_Have_Validation_Error_For_Past_And_ExpiryYear()
+        public void Should_Have_Validation_Error_For_Past_ExpiryYear()
         {
             var validator = new PaymentRequestValidator();
 
@@ -74,7 +74,7 @@ namespace PaymentsGateway.UnitTests.Models
         }
 
         [Fact]
-        public void Should_Have_Validation_Error_For_Past_And_ExpiryMonth()
+        public void Should_Have_Validation_Error_For_Past_ExpiryMonth()
         {
             var validator = new PaymentRequestValidator();
             var paymentRequest = new PaymentRequest

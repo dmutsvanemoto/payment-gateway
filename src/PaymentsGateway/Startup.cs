@@ -5,15 +5,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using FluentValidation.AspNetCore;
+using PaymentsGateway.Controllers;
+using PaymentsGateway.HttpClients;
 using PaymentsGateway.Services;
 
 namespace PaymentsGateway
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
+                .AddEnvironmentVariables()
+                .Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -29,6 +35,7 @@ namespace PaymentsGateway
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PaymentsGateway", Version = "v1" });
             });
 
+            services.AddHttpClient<IPaymentsApiClient, PaymentsApiClient>();
             services.AddScoped<IPaymentsService, PaymentService>();
         }
 
