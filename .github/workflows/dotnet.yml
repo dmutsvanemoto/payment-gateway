@@ -27,4 +27,4 @@ jobs:
 
      # run tests with built project
     - name: Test PR
-      run: dotnet test --no-restore --no-build --configuration $config"
+      run: dotnet test --no-restore --no-build --configuration $config
