@@ -16,7 +16,7 @@ namespace PaymentsGateway.Controllers
             _paymentsService = paymentsService;
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest payload)
         {
             if (!ModelState.IsValid)
