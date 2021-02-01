@@ -2,15 +2,14 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["PaymentsGateway/PaymentsGateway.csproj", "PaymentsGateway/"]
-RUN dotnet restore "PaymentsGateway/PaymentsGateway.csproj"
+COPY ["src/PaymentsGateway/PaymentsGateway.csproj", "src/PaymentsGateway/"]
+RUN dotnet restore "src/PaymentsGateway/PaymentsGateway.csproj"
 COPY . .
-WORKDIR "/src/PaymentsGateway"
+WORKDIR "/src/src/PaymentsGateway"
 RUN dotnet build "PaymentsGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish

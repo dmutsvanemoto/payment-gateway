@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsGateway", "src\Paym
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsGateway.UnitTests", "tests\PaymentsGateway.UnitTests\PaymentsGateway.UnitTests.csproj", "{9860AD2E-672D-4E25-B643-60C914835F85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsAPI", "src\PaymentsAPI\PaymentsAPI.csproj", "{B4368E65-F3D4-4C7B-968B-F156729D8B99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsAPI", "src\PaymentsAPI\PaymentsAPI.csproj", "{B4368E65-F3D4-4C7B-968B-F156729D8B99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsAPI.UnitTests", "tests\PaymentsAPI.UnitTests\PaymentsAPI.UnitTests.csproj", "{5C010C22-6037-4546-91C2-BCECBB0E59C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentsAPI.UnitTests", "tests\PaymentsAPI.UnitTests\PaymentsAPI.UnitTests.csproj", "{5C010C22-6037-4546-91C2-BCECBB0E59C5}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C4D84CDB-B52F-42B8-A337-D0FD87F19E83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5C010C22-6037-4546-91C2-BCECBB0E59C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C010C22-6037-4546-91C2-BCECBB0E59C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C010C22-6037-4546-91C2-BCECBB0E59C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D84CDB-B52F-42B8-A337-D0FD87F19E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D84CDB-B52F-42B8-A337-D0FD87F19E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D84CDB-B52F-42B8-A337-D0FD87F19E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D84CDB-B52F-42B8-A337-D0FD87F19E83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
