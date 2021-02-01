@@ -16,8 +16,7 @@ namespace PaymentsGateway.Controllers
             _paymentsService = paymentsService;
         }
 
-        [HttpPost]
-        [Route("payments")]
+        [HttpPut]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest payload)
         {
             if (!ModelState.IsValid)
@@ -31,7 +30,7 @@ namespace PaymentsGateway.Controllers
         }
 
         [HttpGet]
-        [Route("payments")]
+        [Route("")]
         public async Task<IActionResult> RetrievePayments([FromQuery] int merchantId)
         {
             if (merchantId == 0)

@@ -20,11 +20,11 @@ jobs:
         dotnet-version: 5.0.x
 
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore ./MerchantPlatform.sln
 
     - name: Build
-      run: dotnet build --configuration $config --no-restore
+      run: dotnet build ./MerchantPlatform.sln --configuration $config --no-restore
 
      # run tests with built project
     - name: Test PR
-      run: dotnet test --no-restore --no-build --configuration $config
+      run: dotnet test ./MerchantPlatform.sln --no-restore --no-build --configuration $config
