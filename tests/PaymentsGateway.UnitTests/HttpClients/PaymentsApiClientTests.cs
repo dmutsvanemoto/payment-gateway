@@ -22,7 +22,7 @@ namespace PaymentsGateway.UnitTests.HttpClients
         private readonly IConfiguration _configuration;
         public PaymentsApiClientTests()
         {
-            _configuration = Mock.Of<IConfiguration>(m => m[It.Is<string>(o => o == PaymentsApiClient.PAYMENTS_API)] == Url);
+            _configuration = Mock.Of<IConfiguration>(m => m[It.Is<string>(o => o == PaymentsApiClient.PAYMENTS_API_HOST)] == Url);
         }
 
         private const string Url = "https://localhost:43";
