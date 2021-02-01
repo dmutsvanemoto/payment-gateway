@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -15,7 +12,7 @@ namespace PaymentsAPI.UnitTests.Business.Services
 {
     public class ReadServiceTests
     {
-        public IList<Payment> Payments { get; set; }
+        public IList<Payment> Payments { get; set; } = new List<Payment>();
 
         [Fact]
         public async Task GetByMerchantId_When_MerchantId_Has_No_Payments_Return_Empty_List()
@@ -25,9 +22,9 @@ namespace PaymentsAPI.UnitTests.Business.Services
             
             var service = new ReadService(mockContext.Object);
 
-            var payments = await service.GetByMerchantId(123);
+            var actual = await service.GetByMerchantId(123);
 
-            payments.Should().HaveCount(0);
+            actual.Should().HaveCount(0);
         }
 
 

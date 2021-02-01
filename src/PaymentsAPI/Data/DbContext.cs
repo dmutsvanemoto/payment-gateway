@@ -9,11 +9,16 @@ namespace PaymentsAPI.Data
 {
     public class PaymentsDbContext : DbContext
     {
+        public PaymentsDbContext()
+        {
+            
+        }
+
         public PaymentsDbContext(DbContextOptions<PaymentsDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
     }
 }
