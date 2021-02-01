@@ -21,9 +21,10 @@ namespace PaymentsAPI.Controllers
         }
 
         [HttpGet]
+        [Route("")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<IActionResult> GetPaymentsByMerchantId([FromRoute] int? merchantId)
+        public async Task<IActionResult> GetPaymentsByMerchantId([FromQuery] int? merchantId)
         {
             try
             {
