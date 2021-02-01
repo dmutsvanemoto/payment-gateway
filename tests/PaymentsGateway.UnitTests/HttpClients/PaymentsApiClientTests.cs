@@ -25,7 +25,7 @@ namespace PaymentsGateway.UnitTests.HttpClients
             _configuration = Mock.Of<IConfiguration>(m => m[It.Is<string>(o => o == PaymentsApiClient.PAYMENTS_API_HOST)] == Url);
         }
 
-        private const string Url = "https://localhost:43";
+        private const string Url = "https://localhost:8080";
 
         [Theory]
         [InlineData(null)]
@@ -49,7 +49,7 @@ namespace PaymentsGateway.UnitTests.HttpClients
         {
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
 
-            var absoluteURi = $"{Url}/payments";
+            var absoluteURi = $"{Url}/api/payments";
             mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync", 
@@ -78,7 +78,7 @@ namespace PaymentsGateway.UnitTests.HttpClients
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
 
             var merchantId = 123;
-            var absoluteURi = $"{Url}/payments?merchantId={merchantId}";
+            var absoluteURi = $"{Url}/api/payments?merchantId={merchantId}";
             mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync",
