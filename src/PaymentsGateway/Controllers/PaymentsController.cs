@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using PaymentsGateway.Models;
 using PaymentsGateway.Services;
 
@@ -9,24 +12,39 @@ namespace PaymentsGateway.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
+        private readonly ILogger<PaymentsController> _logger;
         private readonly IPaymentsService _paymentsService;
+        private readonly IBankService _bankService;
 
-        public PaymentsController(IPaymentsService paymentsService)
+        public PaymentsController(ILogger<PaymentsController> logger, IPaymentsService paymentsService, IBankService bankService)
         {
+            _logger = logger;
             _paymentsService = paymentsService;
+            _bankService = bankService;
         }
 
         [HttpPut]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest payload)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                await _bankService.ProcessPayment(payload);
+
+                var paymentCreated = await _paymentsService.ProcessPayment(payload);
+
+                return paymentCreated ? NoContent() : BadRequest();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Failed to process payment!");
             }
 
-            var paymentCreated = await _paymentsService.ProcessPayment(payload);
-
-            return paymentCreated ? NoContent() : BadRequest();
+            return StatusCode((int)HttpStatusCode.InternalServerError);
         }
 
         [HttpGet]
