@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using PaymentsGateway.Controllers;
 using PaymentsGateway.Models;
@@ -14,19 +15,24 @@ namespace PaymentsGateway.UnitTests.Controllers
 {
     public class PaymentsControllerTests
     {
+        private readonly ILogger<PaymentsController> _logger;
         private readonly Mock<IPaymentsService> _mockPaymentsService;
+        private readonly Mock<IBankService> _mockBankService;
+
         public PaymentsControllerTests()
         {
+            _logger = Mock.Of<ILogger<PaymentsController>>();
             _mockPaymentsService = new Mock<IPaymentsService>();
+            _mockBankService = new Mock<IBankService>();
         }
 
         [Fact]
-        public async Task When_Payload_Is_Invalid_Then_Return_BadRequestResult()
+        public async Task ProcessPayment_When_Payload_Is_Invalid_Then_Return_BadRequestResult()
         {
             _mockPaymentsService.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
                 .ReturnsAsync(false);
 
-            var controller = new PaymentsController(_mockPaymentsService.Object);
+            var controller = new PaymentsController(_logger, _mockPaymentsService.Object, _mockBankService.Object);
 
             var paymentRequest = new PaymentRequest
             {
@@ -50,7 +56,7 @@ namespace PaymentsGateway.UnitTests.Controllers
             _mockPaymentsService.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
                 .ReturnsAsync(false);
 
-            var controller = new PaymentsController(_mockPaymentsService.Object);
+            var controller = new PaymentsController(_logger, _mockPaymentsService.Object, _mockBankService.Object);
 
             var paymentRequest = new PaymentRequest
             {
@@ -75,7 +81,7 @@ namespace PaymentsGateway.UnitTests.Controllers
             _mockPaymentsService.Setup(x => x.ProcessPayment(It.IsAny<PaymentRequest>()))
                 .ReturnsAsync(true);
 
-            var controller = new PaymentsController(_mockPaymentsService.Object);
+            var controller = new PaymentsController(_logger, _mockPaymentsService.Object, _mockBankService.Object);
 
             var paymentRequest = new PaymentRequest
             {
@@ -98,7 +104,7 @@ namespace PaymentsGateway.UnitTests.Controllers
         public async Task When_MerchantId_Is_Invalid_Then_Return_BadRequest()
         {
             var merchantId = 0;
-            var controller = new PaymentsController(_mockPaymentsService.Object);
+            var controller = new PaymentsController(_logger, _mockPaymentsService.Object, _mockBankService.Object);
 
             var expected = new BadRequestResult();
             var actual = await controller.RetrievePayments(merchantId);
@@ -115,7 +121,7 @@ namespace PaymentsGateway.UnitTests.Controllers
             _mockPaymentsService.Setup(x => x.RetrievePayments(It.IsAny<int>()))
                 .ReturnsAsync(payments);
 
-            var controller = new PaymentsController(_mockPaymentsService.Object);
+            var controller = new PaymentsController(_logger, _mockPaymentsService.Object, _mockBankService.Object);
 
             var expected = new OkObjectResult(payments);
             var actual = await controller.RetrievePayments(merchantId);
@@ -134,7 +140,7 @@ namespace PaymentsGateway.UnitTests.Controllers
             _mockPaymentsService.Setup(x => x.RetrievePayments(It.IsAny<int>()))
                 .ReturnsAsync(payments);
 
-            var controller = new PaymentsController(_mockPaymentsService.Object);
+            var controller = new PaymentsController(_logger, _mockPaymentsService.Object, _mockBankService.Object);
 
             var expected = new OkObjectResult(payments);
             var actual = await controller.RetrievePayments(merchantId);
